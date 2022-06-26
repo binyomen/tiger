@@ -1,8 +1,6 @@
 #ifndef UTIL_H
 #define UTIL_H
 
-#include <assert.h>
-
 typedef char* string;
 typedef char bool;
 

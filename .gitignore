@@ -1,2 +1,4 @@
-*.o
-*.out
+/*.o
+/*.out
+/lex.yy.c
+/lextest

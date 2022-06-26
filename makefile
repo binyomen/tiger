@@ -1,17 +1,20 @@
-a.out: main.o prog1.o slp.o util.o
-	cc -g main.o prog1.o slp.o util.o
+lextest: driver.o lex.yy.o errormsg.o util.o
+	cc -g -o lextest driver.o lex.yy.o errormsg.o util.o
 
-main.o: main.c prog1.h slp.h util.h
-	cc -g -c main.c
+driver.o: driver.c errormsg.h tokens.h util.h
+	cc -g -c driver.c
 
-prog1.o: prog1.c prog1.h slp.h util.h
-	cc -g -c prog1.c
+errormsg.o: errormsg.c errormsg.h tokens.h util.h
+	cc -g -c errormsg.c
 
-slp.o: slp.c prog1.h slp.h util.h
-	cc -g -c slp.c
+lex.yy.o: lex.yy.c errormsg.h tokens.h util.h
+	cc -g -c lex.yy.c
 
-util.o: util.c prog1.h slp.h util.h
+lex.yy.c: tiger.lex
+	lex tiger.lex
+
+util.o: util.c errormsg.h tokens.h util.h
 	cc -g -c util.c
 
 clean:
-	rm -f a.out util.o prog1.o slp.o main.o
+	rm -f *.o *.out lex.yy.c lextest
