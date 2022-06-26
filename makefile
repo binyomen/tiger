@@ -40,4 +40,4 @@ table.o: table.c $(HEADERS)
 	cc -Wpointer-to-int-cast -g -c table.c
 
 clean:
-	rm -f *.o *.out y.tab.c y.tab.h
+	rm -f *.o *.out y.tab.c y.tab.h parsetest tiger.tab.grm
