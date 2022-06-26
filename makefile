@@ -37,7 +37,7 @@ symbol.o: symbol.c $(HEADERS)
 	cc -g -c symbol.c
 
 table.o: table.c $(HEADERS)
-	cc -Wpointer-to-int-cast -g -c table.c
+	cc -g -c table.c
 
 clean:
 	rm -f *.o *.out y.tab.c y.tab.h parsetest tiger.tab.grm
