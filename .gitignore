@@ -1,4 +1,5 @@
 /*.o
 /*.out
-/lex.yy.c
-/lextest
+/y.tab.c
+/y.tab.h
+/parsetest

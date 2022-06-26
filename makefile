@@ -1,20 +1,28 @@
-lextest: driver.o lex.yy.o errormsg.o util.o
-	cc -g -o lextest driver.o lex.yy.o errormsg.o util.o
+HEADERS = errormsg.h util.h
 
-driver.o: driver.c errormsg.h tokens.h util.h
-	cc -g -c driver.c
+parsetest: parsetest.o y.tab.o lex.yy.o errormsg.o util.o
+	cc -g -o parsetest parsetest.o y.tab.o lex.yy.o errormsg.o util.o
 
-errormsg.o: errormsg.c errormsg.h tokens.h util.h
+parsetest.o: parsetest.c $(HEADERS)
+	cc -g -c parsetest.c
+
+y.tab.o: y.tab.c
+	cc -g -c y.tab.c
+
+y.tab.c: tiger.grm
+	yacc -dv tiger.grm
+
+y.tab.h: y.tab.c
+	echo "y.tab.h was created at the same time as y.tab.c"
+
+errormsg.o: errormsg.c $(HEADERS)
 	cc -g -c errormsg.c
 
-lex.yy.o: lex.yy.c errormsg.h tokens.h util.h
+lex.yy.o: lex.yy.c y.tab.h $(HEADERS)
 	cc -g -c lex.yy.c
 
-lex.yy.c: tiger.lex
-	lex tiger.lex
-
-util.o: util.c errormsg.h tokens.h util.h
+util.o: util.c $(HEADERS)
 	cc -g -c util.c
 
 clean:
-	rm -f *.o *.out lex.yy.c lextest
+	rm -f *.o *.out y.tab.c y.tab.h
